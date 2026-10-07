@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive Three.js tutorial for building a galaxy from particles."
+    />
+    <meta name="theme-color" content="#090a12" />
+    <title>Galaxy Generator — Three.js Tutorial</title>
+  </head>
+  <body>
+    <main class="app">
+      <div class="scene" aria-label="Interactive 3D particle galaxy">
+        <canvas id="galaxy-canvas"></canvas>
+        <div class="scene-topline">
+          <a class="brand" href="/" aria-label="Galaxy Generator home">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>PARTICLE LAB</span>
+          </a>
+          <span class="scene-hint"><span class="hint-dot"></span> DRAG TO EXPLORE</span>
+        </div>
+        <div class="scene-caption" aria-live="polite">
+          <span class="caption-index">01</span>
+          <span id="caption-text">A spiral galaxy, built one particle at a time.</span>
+        </div>
+        <div class="scene-credit">MADE WITH THREE.JS <span>·</span> 3D PARTICLES</div>
+      </div>
+
+      <aside class="panel">
+        <div class="panel-header">
+          <div class="eyebrow"><span class="eyebrow-line"></span> THREE.JS PLAYGROUND</div>
+          <h1>Galaxy<br /><span>Generator</span></h1>
+          <p class="intro">Shape a universe from thousands of tiny points. Adjust the ingredients, then watch them fall into orbit.</p>
+        </div>
+
+        <section class="controls" aria-labelledby="controls-title">
+          <div class="section-heading">
+            <h2 id="controls-title">GALAXY PARAMETERS</h2>
+            <span class="live-indicator"><span></span> LIVE</span>
+          </div>
+
+          <label class="control" for="count">
+            <span class="control-name">Particles <output id="count-value">24,000</output></span>
+            <input id="count" type="range" min="1000" max="60000" step="1000" value="24000" />
+            <span class="range-scale"><span>1K</span><span>60K</span></span>
+          </label>
+
+          <label class="control" for="size">
+            <span class="control-name">Particle size <output id="size-value">0.018</output></span>
+            <input id="size" type="range" min="0.005" max="0.06" step="0.001" value="0.018" />
+          </label>
+
+          <label class="control" for="radius">
+            <span class="control-name">Galaxy radius <output id="radius-value">5.0</output></span>
+            <input id="radius" type="range" min="2" max="10" step="0.1" value="5" />
+          </label>
+
+          <label class="control" for="branches">
+            <span class="control-name">Spiral arms <output id="branches-value">4</output></span>
+            <input id="branches" type="range" min="2" max="8" step="1" value="4" />
+          </label>
+
+          <label class="control" for="spin">
+            <span class="control-name">Arm spin <output id="spin-value">1.2</output></span>
+            <input id="spin" type="range" min="-2" max="2" step="0.1" value="1.2" />
+          </label>
+
+          <label class="control" for="randomness">
+            <span class="control-name">Arm dispersion <output id="randomness-value">0.25</output></span>
+            <input id="randomness" type="range" min="0" max="2" step="0.01" value="0.25" />
+          </label>
+
+          <div class="color-controls">
+            <label class="color-control" for="inside-color">
+              <span>CORE COLOR</span>
+              <input id="inside-color" type="color" value="#ff6030" />
+            </label>
+            <span class="color-arrow" aria-hidden="true">→</span>
+            <label class="color-control" for="outside-color">
+              <span>EDGE COLOR</span>
+              <input id="outside-color" type="color" value="#3b5bff" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="generate-button" id="generate" type="button">
+              <span aria-hidden="true">✳</span> Generate galaxy
+              <span class="button-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="icon-button" id="randomize" type="button" aria-label="Randomize galaxy settings" title="Randomize settings">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M17 3h4v4M3 7h2.5a5 5 0 0 1 4.1 2.14l4.8 6.72A5 5 0 0 0 18.5 18H21m0 0-4-4m4 4-4 4M3 17h2.5a5 5 0 0 0 3.2-1.16M14.2 8.16A5 5 0 0 1 18.5 6H21m0 0-4-4m4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <p class="particle-count"><span class="count-dot"></span><span id="particle-count">24,000 particles in your galaxy</span></p>
+        </section>
+
+        <section class="lesson" aria-labelledby="lesson-title">
+          <div class="lesson-icon" aria-hidden="true">✦</div>
+          <div>
+            <h2 id="lesson-title">THE RECIPE</h2>
+            <p>Each point gets a random radius and an arm angle. Add a little spin and scatter, and a galaxy appears.</p>
+            <code>angle = (index % arms) / arms × τ</code>
+          </div>
+        </section>
+
+        <footer class="panel-footer">
+          <span>AN EXPERIMENT IN ORBITS</span>
+          <button id="reset" type="button">RESET DEFAULTS <span aria-hidden="true">↺</span></button>
+        </footer>
+      </aside>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
